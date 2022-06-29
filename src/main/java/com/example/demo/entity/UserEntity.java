@@ -7,7 +7,8 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity(name="person")
-public class PersonEntity implements Serializable {
+public class UserEntity implements Serializable {
+    private static final long serialVersionUID = 7809200551672852690L;
 
     @Id
     @GeneratedValue
@@ -24,4 +25,24 @@ public class PersonEntity implements Serializable {
 
     @Column
     private boolean idBand;
+
+    public long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isMemberOfBand() {
+        return isMemberOfBand;
+    }
+
+    public boolean isIdBand() {
+        return idBand;
+    }
 }
