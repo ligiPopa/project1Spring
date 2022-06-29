@@ -1,21 +1,13 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity(name="type")
-public class TypeEntity implements Serializable {
+public class BandDTO implements Serializable {
     private static final long serialVersionUID = 7809200551672852690L;
-
-    @Id
-    @GeneratedValue
     private long id;
-
-    @Column(nullable=false, length=120)
     private String name;
+
+    private int nrMembers;
 
     public long getId() {
         return id;
@@ -25,11 +17,19 @@ public class TypeEntity implements Serializable {
         return name;
     }
 
+    public int getNrMembers() {
+        return nrMembers;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setNrMembers(int nrMembers) {
+        this.nrMembers = nrMembers;
     }
 }

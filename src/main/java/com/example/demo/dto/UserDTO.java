@@ -1,32 +1,21 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity(name="users")
-public class UserEntity implements Serializable {
+public class UserDTO implements Serializable {
+
     private static final long serialVersionUID = 7809200551672852690L;
 
-    @Id
-    @GeneratedValue
     private long id;
 
-    @Column(nullable=false)
     private String userId;
 
-    @Column(nullable=false)
     private String email;
 
-    @Column(nullable=false)
     private int age;
 
-    @Column(nullable = false)
     private boolean isMemberOfBand;
 
-    @Column
     private boolean idBand;
 
     public long getId() {
@@ -39,10 +28,6 @@ public class UserEntity implements Serializable {
 
     public int getAge() {
         return age;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 
     public boolean isMemberOfBand() {
@@ -71,9 +56,5 @@ public class UserEntity implements Serializable {
 
     public void setIdBand(boolean idBand) {
         this.idBand = idBand;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 }
