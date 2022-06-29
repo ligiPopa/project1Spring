@@ -45,6 +45,7 @@ public class UserEntity implements Serializable {
         return userId;
     }
 
+
     public boolean isMemberOfBand() {
         return isMemberOfBand;
     }
@@ -65,7 +66,7 @@ public class UserEntity implements Serializable {
         this.age = age;
     }
 
-    public void setMemberOfBand(boolean memberOfBand) {
+    public void setIsMemberOfBand(boolean memberOfBand) {
         isMemberOfBand = memberOfBand;
     }
 

@@ -30,6 +30,10 @@ public class UserDTO implements Serializable {
         return age;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public boolean isMemberOfBand() {
         return isMemberOfBand;
     }
@@ -50,11 +54,15 @@ public class UserDTO implements Serializable {
         this.age = age;
     }
 
-    public void setMemberOfBand(boolean memberOfBand) {
+    public void setIsMemberOfBand(boolean memberOfBand) {
         isMemberOfBand = memberOfBand;
     }
 
     public void setIdBand(boolean idBand) {
         this.idBand = idBand;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
