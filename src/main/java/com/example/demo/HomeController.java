@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
-
+    //TODO remove it
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @GetMapping("/welcome")

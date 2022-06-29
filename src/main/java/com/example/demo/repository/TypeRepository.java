@@ -7,5 +7,4 @@ import java.util.Optional;
 
 @Repository
 public interface TypeRepository extends CrudRepository<TypeRepository, Long> {
-
 }
