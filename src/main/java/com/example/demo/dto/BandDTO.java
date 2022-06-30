@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class BandDTO implements Serializable {
     private static final long serialVersionUID = 7809200551672852690L;
     private long id;
+
+    private String bandId;
     private String name;
 
     private int nrMembers;
@@ -31,5 +33,13 @@ public class BandDTO implements Serializable {
 
     public void setNrMembers(int nrMembers) {
         this.nrMembers = nrMembers;
+    }
+
+    public String getBandId() {
+        return bandId;
+    }
+
+    public void setBandId(String bandId) {
+        this.bandId = bandId;
     }
 }

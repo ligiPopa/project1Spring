@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findByEmail(email);
 
         if (userEntity == null)
-            throw new UserServiceException(email);
+            throw new UserServiceException(email + " not found!");
 
         UserDTO returnValue = new UserDTO();
         BeanUtils.copyProperties(userEntity, returnValue);

@@ -13,6 +13,8 @@ public class TypeEntity implements Serializable {
     @Id
     @GeneratedValue
     private long id;
+    @Column(nullable=false, length=120)
+    private String typeId;
 
     @Column(nullable=false, length=120)
     private String name;
@@ -31,5 +33,13 @@ public class TypeEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 }

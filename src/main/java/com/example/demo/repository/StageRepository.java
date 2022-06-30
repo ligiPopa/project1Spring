@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StageRepository extends CrudRepository<StageEntity,Long> {
     StageEntity findByStageName(String stageName);
+    StageEntity findByStageId(String stagId);
 }
