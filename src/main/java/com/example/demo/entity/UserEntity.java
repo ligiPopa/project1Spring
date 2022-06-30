@@ -2,9 +2,8 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
-@Entity(name="users")
+@Entity(name = "users")
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = 7809200551672852690L;
 
@@ -12,13 +11,13 @@ public class UserEntity implements Serializable {
     @GeneratedValue
     private long id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String userId;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private int age;
 
     @Column(nullable = false)
@@ -28,7 +27,7 @@ public class UserEntity implements Serializable {
     private boolean idBand;
 
     @ManyToOne
-    @JoinColumn(name="bands_id")
+    @JoinColumn(name = "bands_id")
     private BandEntity bandDetails;
 
     public long getId() {
