@@ -1,10 +1,8 @@
 package com.example.demo.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(name="users")
 public class UserEntity implements Serializable {
@@ -28,6 +26,10 @@ public class UserEntity implements Serializable {
 
     @Column
     private boolean idBand;
+
+    @ManyToOne
+    @JoinColumn(name="band_id")
+    private BandEntity bandDetails;
 
     public long getId() {
         return id;
@@ -54,6 +56,10 @@ public class UserEntity implements Serializable {
         return idBand;
     }
 
+    public BandEntity getBandDetails() {
+        return bandDetails;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -76,5 +82,9 @@ public class UserEntity implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public void setBandDetails(BandEntity bandDetails) {
+        this.bandDetails = bandDetails;
     }
 }

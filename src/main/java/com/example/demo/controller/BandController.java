@@ -15,8 +15,8 @@ public class BandController {
     BandService bandService;
 
     @GetMapping(path = "/{id}")
-    public BandRest getUser(@PathVariable String id) {
-        BandDTO bandDTO = bandService.getBand(id);
+    public BandRest getUser(@PathVariable String name) {
+        BandDTO bandDTO = bandService.getBandByName(name);
         BandRest returnValue = new BandRest();
         BeanUtils.copyProperties(bandDTO, returnValue);
         return returnValue;

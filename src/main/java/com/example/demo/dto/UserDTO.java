@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.BandEntity;
+
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
@@ -18,6 +20,7 @@ public class UserDTO implements Serializable {
 
     private boolean idBand;
 
+    private BandEntity bandDetails;
     public long getId() {
         return id;
     }
@@ -42,6 +45,10 @@ public class UserDTO implements Serializable {
         return idBand;
     }
 
+    public BandEntity getBandDetails() {
+        return bandDetails;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -64,5 +71,9 @@ public class UserDTO implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public void setBandDetails(BandEntity bandDetails) {
+        this.bandDetails = bandDetails;
     }
 }

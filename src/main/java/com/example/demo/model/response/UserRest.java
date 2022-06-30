@@ -12,6 +12,8 @@ public class UserRest{
 
     private boolean idBand;
 
+    private BandRest bandDetails;
+
     public String getUserId() {
         return userId;
     }
@@ -50,5 +52,13 @@ public class UserRest{
 
     public void setIdBand(boolean idBand) {
         this.idBand = idBand;
+    }
+
+    public BandRest getBandDetails() {
+        return bandDetails;
+    }
+
+    public void setBandDetails(BandRest bandDetails) {
+        this.bandDetails = bandDetails;
     }
 }
