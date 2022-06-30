@@ -7,6 +7,8 @@ public class TypeDTO implements Serializable {
 
     private long id;
 
+    private String typeId;
+
     private String name;
 
     public long getId() {
@@ -23,5 +25,13 @@ public class TypeDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 }

@@ -3,6 +3,6 @@ package com.example.demo.service;
 import com.example.demo.dto.BandDTO;
 
 public interface BandService {
-    BandDTO getBand(String bandId);
+    BandDTO getBandByName(String bandName);
     BandDTO createBand(BandDTO bandDTO);
 }
