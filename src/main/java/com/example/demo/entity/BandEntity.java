@@ -12,7 +12,7 @@ public class BandEntity implements Serializable {
     @GeneratedValue
     private long id;
 
-    @OneToMany(mappedBy="users_id", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="bandDetails", cascade=CascadeType.ALL)
     private List<UserEntity> listOfUserDetails;
 
     @Column(nullable=false)

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BandRepository extends CrudRepository<BandEntity, Long> {
-    BandEntity findByBandName(String bandName);
+    BandEntity findByName(String name);
     BandEntity findByBandId(String bandId);
 }

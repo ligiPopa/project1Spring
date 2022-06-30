@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TypeRepository extends CrudRepository<TypeEntity, Long> {
     TypeEntity findByTypeId(String typeId);
-    TypeEntity findByTypeName(String typeName);
+    TypeEntity findByName(String typeName);
 
 }

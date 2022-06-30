@@ -28,7 +28,7 @@ public class UserEntity implements Serializable {
     private boolean idBand;
 
     @ManyToOne
-    @JoinColumn(name="band_id")
+    @JoinColumn(name="bands_id")
     private BandEntity bandDetails;
 
     public long getId() {

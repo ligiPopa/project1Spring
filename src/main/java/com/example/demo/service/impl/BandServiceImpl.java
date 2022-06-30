@@ -8,7 +8,9 @@ import com.example.demo.service.BandService;
 import com.example.demo.utils.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BandServiceImpl implements BandService {
     @Autowired
     BandRepository bandRepository;
@@ -17,18 +19,18 @@ public class BandServiceImpl implements BandService {
     Utils utils;
 
     @Override
-    public BandDTO getBandByName(String bandName) {
+    public BandDTO getBandByName(String name) {
 
         BandDTO returnValue = null;
 
-        BandEntity bandEntity = bandRepository.findByBandName(bandName);
+        BandEntity bandEntity = bandRepository.findByName(name);
 
         if(bandEntity != null)
         {
             BeanUtils.copyProperties(bandEntity, returnValue);
         }
         else
-            throw new UserServiceException("Band with name " + bandName + " not found!");
+            throw new UserServiceException("Band with name " + name + " not found!");
 
         return returnValue;
     }

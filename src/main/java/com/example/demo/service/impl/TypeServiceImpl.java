@@ -8,6 +8,9 @@ import com.example.demo.service.TypeService;
 import com.example.demo.utils.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class TypeServiceImpl implements TypeService {
     @Autowired
@@ -19,7 +22,7 @@ public class TypeServiceImpl implements TypeService {
     public TypeDTO getTpeByName(String typeName) {
         TypeDTO returnValue = null;
 
-        TypeEntity typeEntity = typeRepository.findByTypeName(typeName);
+        TypeEntity typeEntity = typeRepository.findByName(typeName);
 
         if(typeEntity != null)
         {
