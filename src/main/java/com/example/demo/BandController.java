@@ -18,8 +18,8 @@ public class BandController {
     @Autowired
     BandService bandService;
 
-    @GetMapping(path="/name")
-    public BandRest getUser(@RequestBody String name) {
+    @GetMapping(path="/{name}")
+    public BandRest getUser(@PathVariable String name) {
         BandDTO bandDTO = bandService.getBandByName(name);
         BandRest returnValue = new BandRest();
         BeanUtils.copyProperties(bandDTO, returnValue);

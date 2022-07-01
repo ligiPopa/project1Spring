@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.dto.BandDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.model.request.UserRequestModel;
 import com.example.demo.model.response.UserRest;
@@ -36,12 +37,27 @@ public class UserController {
         UserRest returnValue = new UserRest();
         UserDTO userDto = new UserDTO();
 
-        userDto.setIdBand(bandService.getBandByName(userDetails.getBandName()).getBandId());
+        BandDTO bandDTO = bandService.getBandByName(userDetails.getBandName());
+
+        userDto.setIdBand(bandDTO.getBandId());
         userDto.setMemberOfBand(!userDetails.getBandName().isEmpty());
 
         BeanUtils.copyProperties(userDetails, userDto);
         UserDTO createdUser = userService.createUser(userDto);
         BeanUtils.copyProperties(createdUser, returnValue);
+
+        //should be created/updated band
+        if(!userDetails.getBandName().isEmpty())
+            if(bandService.getBandByName(userDetails.getBandName()).getName().isEmpty()) {
+                BandDTO bandDTO1 = new BandDTO();
+                bandDTO1.setNrMembers(1);
+                bandDTO1.setName(userDetails.getBandName());
+                bandService.createBand(bandDTO);
+            }
+        else
+            bandService.updateNumberOfMemberOfBand(userDetails.getBandName());
+
+
         return returnValue;
     }
 

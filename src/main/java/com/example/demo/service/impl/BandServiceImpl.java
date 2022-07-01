@@ -28,11 +28,9 @@ public class BandServiceImpl implements BandService {
 
         BandEntity bandEntity = bandRepository.findByName(name);
 
-        if(bandEntity != null)
-        {
+        if (bandEntity != null) {
             BeanUtils.copyProperties(bandEntity, returnValue);
-        }
-        else
+        } else
             throw new UserServiceException("Band with name " + name + " not found!");
 
         return returnValue;
@@ -40,16 +38,16 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public BandDTO createBand(BandDTO band) {
-        if (bandRepository.findByName(band.getName()) != null )
-           // throw new BandServiceException("Record already exists");
+        if (bandRepository.findByName(band.getName()) != null)
+            // throw new BandServiceException("Record already exists");
 
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Foo Not Found");
 
-        BandEntity  bandEntity = new BandEntity();
+        BandEntity bandEntity = new BandEntity();
         BeanUtils.copyProperties(band, bandEntity);
 
-        String publicBandId = utils.generateUserId(30);
+        String publicBandId = utils.generateId(30);
 
         bandEntity.setBandId(publicBandId);
 
@@ -59,5 +57,23 @@ public class BandServiceImpl implements BandService {
         BeanUtils.copyProperties(storedTicketDetails, returnValue);
 
         return returnValue;
+    }
+
+    @Override
+    public BandDTO updateNumberOfMemberOfBand(String bandName) {
+        if (bandRepository.findByName(bandName) == null)
+            throw new BandServiceException("Record doesn't exists");
+        else
+        {
+           int numberOfMember =  bandRepository.findByName(bandName).getNrMembers();
+            BandEntity bandEntity = new BandEntity();
+            bandRepository.findByName(bandName).setNrMembers(numberOfMember + 1);
+            BeanUtils.copyProperties( bandRepository.findByName(bandName), bandEntity);
+            BandEntity storedTicketDetails = bandRepository.save(bandEntity);
+
+            BandDTO returnValue = new BandDTO();
+            BeanUtils.copyProperties(storedTicketDetails, returnValue);
+            return returnValue;
+        }
     }
 }
