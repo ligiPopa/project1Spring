@@ -28,7 +28,7 @@ public class StageServiceImpl implements StageService {
         StageEntity stageEntity = new StageEntity();
         BeanUtils.copyProperties(stage, stageEntity);
 
-        String publicStageId = utils.generateUserId(30);
+        String publicStageId = utils.generateId(30);
 
         stageEntity.setStageId(publicStageId);
 

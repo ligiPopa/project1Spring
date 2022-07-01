@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
             throw new UserServiceException("Record already exists");
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDTO, userEntity);
-        String publicUserId = utils.generateUserId(30);
+        String publicUserId = utils.generateId(30);
         userEntity.setUserId(publicUserId);
 
         if(userEntity.getAge()<0)

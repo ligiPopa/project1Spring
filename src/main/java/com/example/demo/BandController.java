@@ -27,13 +27,13 @@ public class BandController {
         //return EntityModel.of(returnValue).add(userResourceLink).add(addressesResourceLink);
     }
 
-    @PostMapping(path="/create")
-    public BandRest createBand(@RequestBody BandRequestModel bandDetails) throws Exception {
-        BandRest returnValue = new BandRest();
-        BandDTO bandDTO = new BandDTO();
-        BeanUtils.copyProperties(bandDetails, bandDTO);
-        bandService.createBand(bandDTO);
-        BeanUtils.copyProperties(bandDetails, returnValue);
-        return returnValue;
-    }
+//    @PostMapping(path="/create")
+//    public BandRest createBand(@RequestBody BandRequestModel bandDetails) throws Exception {
+//        BandRest returnValue = new BandRest();
+//        BandDTO bandDTO = new BandDTO();
+//        BeanUtils.copyProperties(bandDetails, bandDTO);
+//        bandService.createBand(bandDTO);
+//        BeanUtils.copyProperties(bandDetails, returnValue);
+//        return returnValue;
+//    }
 }

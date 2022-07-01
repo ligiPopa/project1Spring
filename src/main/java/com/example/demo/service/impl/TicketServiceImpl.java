@@ -26,7 +26,7 @@ public class TicketServiceImpl implements TicketService {
         TicketEntity ticketEntity = new TicketEntity();
         BeanUtils.copyProperties(ticket, ticketEntity);
 
-        String publicTicketId = utils.generateUserId(30);
+        String publicTicketId = utils.generateId(30);
 
         ticketEntity.setTicketId(publicTicketId);
 

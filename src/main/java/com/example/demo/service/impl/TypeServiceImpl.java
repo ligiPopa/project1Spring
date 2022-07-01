@@ -43,7 +43,7 @@ public class TypeServiceImpl implements TypeService {
         TypeEntity typeEntity = new TypeEntity();
         BeanUtils.copyProperties(type, typeEntity);
 
-        String publicTypeId = utils.generateUserId(30);
+        String publicTypeId = utils.generateId(30);
 
         typeEntity.setTypeId(publicTypeId);
 
