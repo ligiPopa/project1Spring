@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.model.request.UserRequestModel;
 import com.example.demo.model.response.UserRest;
+import com.example.demo.service.BandService;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    BandService bandService;
+
     @GetMapping(path = "/{id}")
     public UserRest getUser(@PathVariable String id) {
         UserDTO userDTO = userService.getUserByUserId(id);
@@ -27,10 +31,17 @@ public class UserController {
         //return EntityModel.of(returnValue).add(userResourceLink).add(addressesResourceLink);
     }
 
-    @PostMapping(path="/create")
+    @PostMapping(path = "/create")
     public UserRest createUser(@RequestBody UserRequestModel userDetails) throws Exception {
         UserRest returnValue = new UserRest();
-        BeanUtils.copyProperties(userDetails, returnValue);
+        UserDTO userDto = new UserDTO();
+
+        userDto.setIdBand(bandService.getBandByName(userDetails.getBandName()).getBandId());
+        userDto.setMemberOfBand(!userDetails.getBandName().isEmpty());
+
+        BeanUtils.copyProperties(userDetails, userDto);
+        UserDTO createdUser = userService.createUser(userDto);
+        BeanUtils.copyProperties(createdUser, returnValue);
         return returnValue;
     }
 

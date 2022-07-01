@@ -2,7 +2,7 @@ package com.example.demo.model.request;
 
 public class UserRequestModel {
 
-    private String userId;
+    //private String userId;
 
     private String email;
 
@@ -10,14 +10,21 @@ public class UserRequestModel {
 
     private boolean isMemberOfBand;
 
-    private boolean idBand;
+    private String bandName;
 
-    public String getUserId() {
-        return userId;
-    }
+   // private boolean idBand;
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+//    public String getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(String userId) {
+//        this.userId = userId;
+//    }
+
+
+    public String getBandName() {
+        return bandName;
     }
 
     public String getEmail() {
@@ -44,11 +51,15 @@ public class UserRequestModel {
         isMemberOfBand = memberOfBand;
     }
 
-    public boolean isIdBand() {
-        return idBand;
+    public void setBandName(String bandName) {
+        this.bandName = bandName;
     }
 
-    public void setIdBand(boolean idBand) {
-        this.idBand = idBand;
-    }
+    //    public boolean isIdBand() {
+//        return idBand;
+//    }
+//
+//    public void setIdBand(boolean idBand) {
+//        this.idBand = idBand;
+//    }
 }

@@ -2,13 +2,16 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.BandDTO;
 import com.example.demo.entity.BandEntity;
+import com.example.demo.exceptions.BandServiceException;
 import com.example.demo.exceptions.UserServiceException;
 import com.example.demo.repository.BandRepository;
 import com.example.demo.service.BandService;
 import com.example.demo.utils.Utils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class BandServiceImpl implements BandService {
@@ -37,8 +40,11 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public BandDTO createBand(BandDTO band) {
-        if (bandRepository.findByBandId(band.getBandId()) != null )
-            throw new UserServiceException("Record already exists");
+        if (bandRepository.findByName(band.getName()) != null )
+           // throw new BandServiceException("Record already exists");
+
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Foo Not Found");
 
         BandEntity  bandEntity = new BandEntity();
         BeanUtils.copyProperties(band, bandEntity);
@@ -49,7 +55,7 @@ public class BandServiceImpl implements BandService {
 
         BandEntity storedTicketDetails = bandRepository.save(bandEntity);
 
-        BandDTO returnValue = null;
+        BandDTO returnValue = new BandDTO();
         BeanUtils.copyProperties(storedTicketDetails, returnValue);
 
         return returnValue;

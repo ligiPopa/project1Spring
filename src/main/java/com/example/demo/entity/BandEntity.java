@@ -18,7 +18,7 @@ public class BandEntity implements Serializable {
     @Column(nullable=false)
     private String bandId;
 
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     private String name;
 
     @Column(nullable=false)
