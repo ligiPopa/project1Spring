@@ -1,9 +1,9 @@
 package com.example.demo;
 
 import com.example.demo.dto.BandDTO;
-import com.example.demo.model.request.BandRequestModel;
 import com.example.demo.model.response.BandRest;
 import com.example.demo.service.BandService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@SecurityRequirement(name = "BasicAuthentication")
 @RequestMapping("/bands")
 public class BandController {
     private static final Logger logger = LoggerFactory.getLogger(BandController.class);
