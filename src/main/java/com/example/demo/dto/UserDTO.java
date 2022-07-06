@@ -19,6 +19,9 @@ public class UserDTO implements Serializable {
     private boolean isMemberOfBand;
 
     private BandEntity bandDetails = new BandEntity();
+
+    private String password;
+
     public long getId() {
         return id;
     }
@@ -43,6 +46,10 @@ public class UserDTO implements Serializable {
         return bandDetails;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -62,11 +69,16 @@ public class UserDTO implements Serializable {
     public void setMemberOfBand(boolean memberOfBand) {
         isMemberOfBand = memberOfBand;
     }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
     public void setBandDetails(BandEntity bandDetails) {
         this.bandDetails = bandDetails;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

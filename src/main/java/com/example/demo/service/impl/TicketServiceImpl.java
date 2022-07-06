@@ -36,7 +36,6 @@ public class TicketServiceImpl implements TicketService {
 
         ticketEntity.setType(StagesAndTypes.valueOf(stageName).label);
 
-
         String publicTicketId = utils.generateId(30);
 
         ticketEntity.setTicketId(publicTicketId);

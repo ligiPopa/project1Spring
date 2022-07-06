@@ -9,13 +9,14 @@ import com.example.demo.model.request.UserUpdateEmailRequestModel;
 import com.example.demo.model.response.UserRest;
 import com.example.demo.service.BandService;
 import com.example.demo.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
+@SecurityRequirement(name = "BasicAuthentication")
 @RequestMapping("/users")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);

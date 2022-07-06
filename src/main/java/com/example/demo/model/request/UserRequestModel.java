@@ -12,6 +12,8 @@ public class UserRequestModel {
 
     private String bandName;
 
+    private String password;
+
    // private boolean idBand;
 
 //    public String getUserId() {
@@ -53,6 +55,14 @@ public class UserRequestModel {
 
     public void setBandName(String bandName) {
         this.bandName = bandName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     //    public boolean isIdBand() {
