@@ -30,6 +30,9 @@ public class UserEntity implements Serializable {
     @JoinColumn(name = "bands_id")
     private BandEntity bandDetails;
 
+    @Column(nullable = false)
+    private String password;
+
     public long getId() {
         return id;
     }
