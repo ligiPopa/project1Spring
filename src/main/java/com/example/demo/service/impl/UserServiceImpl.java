@@ -1,11 +1,14 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.BandDTO;
 import com.example.demo.dto.UserDTO;
+import com.example.demo.entity.BandEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.exceptions.UserServiceException;
 import com.example.demo.model.response.ErrorMessages;
 import com.example.demo.repository.BandRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.BandService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.Utils;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
@@ -14,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
@@ -22,11 +24,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     BandRepository bandRepository;
 
+//    @Autowired
+//    BandService bandService;
+
     @Autowired
     Utils utils;
 
     @Override
-    public UserDTO getUserByUserId(String email) {
+    public UserDTO getUserByEmail(String email) {
         UserEntity userEntity = userRepository.findByEmail(email);
 
         if (userEntity == null)
@@ -56,7 +61,7 @@ public class UserServiceImpl implements UserService {
             throw new UserServiceException("Record already exists");
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDTO, userEntity);
-        String publicUserId = utils.generateUserId(30);
+        String publicUserId = utils.generateId(30);
         userEntity.setUserId(publicUserId);
 
         if(userEntity.getAge()<0)
@@ -85,14 +90,39 @@ public class UserServiceImpl implements UserService {
         userEntity.setAge(userDTO.getAge());
         userEntity.setUserId(userDTO.getUserId());
         userEntity.setEmail(userDTO.getEmail());
-        userEntity.setIdBand(userDTO.getIdBand());
         userEntity.setIsMemberOfBand(userDTO.isMemberOfBand());
         userEntity.setId(userDTO.getId());
-
+        //userEntity.setBandDetails(userDTO.getBandDetails());
         UserEntity updatedUserDetails = userRepository.save(userEntity);
 
         BeanUtils.copyProperties(updatedUserDetails, returnValue);
 
         return returnValue;
     }
+
+//    @Override
+//    public void createUserWithBand(String bandName, UserDTO userDTO) {
+//        BandEntity bandEntity = new BandEntity();
+//        BandDTO createdBand = bandService.createBand(bandName, userDTO);
+//        BeanUtils.copyProperties(createdBand, bandEntity);
+//        userDTO.setBandDetails(bandEntity);
+//    }
+//
+//
+//    @Override
+//    public void updateUserWithBand(String bandName, UserDTO userDTO) {
+//        //TODO move it to service!!!
+//        BandEntity bandEntity = new BandEntity();
+//        BandDTO updatedBand = bandService.updateNumberOfMemberOfBand(bandName, userDTO);
+//        BeanUtils.copyProperties(updatedBand, bandEntity);
+//        userDTO.setBandDetails(bandEntity);
+//
+//    }
+
+//    @Override
+//    public BandDTO addMembers(UserDTO userDTO) {
+//
+//    }
+
+
 }

@@ -12,7 +12,7 @@ public class UserRest{
 
     private boolean idBand;
 
-    private BandRest bandDetails;
+    private BandRest bandDetails = new BandRest();
 
     public String getUserId() {
         return userId;

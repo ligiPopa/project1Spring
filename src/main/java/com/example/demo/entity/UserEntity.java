@@ -23,9 +23,6 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private boolean isMemberOfBand;
 
-    @Column
-    private String idBand;
-
     @ManyToOne
     @JoinColumn(name = "bands_id")
     private BandEntity bandDetails;
@@ -51,9 +48,6 @@ public class UserEntity implements Serializable {
         return isMemberOfBand;
     }
 
-    public String getIdBand() {
-        return idBand;
-    }
 
     public BandEntity getBandDetails() {
         return bandDetails;
@@ -77,10 +71,6 @@ public class UserEntity implements Serializable {
 
     public void setMemberOfBand(boolean memberOfBand) {
         isMemberOfBand = memberOfBand;
-    }
-
-    public void setIdBand(String idBand) {
-        this.idBand = idBand;
     }
 
     public void setUserId(String userId) {

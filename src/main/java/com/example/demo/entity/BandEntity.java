@@ -1,8 +1,11 @@
 package com.example.demo.entity;
 
 
+import com.example.demo.dto.BandDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="bands")
@@ -12,7 +15,11 @@ public class BandEntity implements Serializable {
     @GeneratedValue
     private long id;
 
-    @OneToMany(mappedBy="bandDetails", cascade=CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name="stage_id")
+    private StageEntity stageDetails;
+
+    @OneToMany(mappedBy="bandDetails",fetch = FetchType.LAZY)
     private List<UserEntity> listOfUserDetails;
 
     @Column(nullable=false)
@@ -62,5 +69,20 @@ public class BandEntity implements Serializable {
 
     public void setListOfUserDetails(List<UserEntity> listOfUserDetails) {
         this.listOfUserDetails = listOfUserDetails;
+    }
+
+    public StageEntity getStageDetails() {
+        return stageDetails;
+    }
+
+    public void setStageDetails(StageEntity stageDetails) {
+        this.stageDetails = stageDetails;
+    }
+
+    public void setBandDetails(BandEntity bandEntity){
+        this.id = bandEntity.getId();
+        this.bandId = bandEntity.getBandId();
+        this.name = bandEntity.getName();
+        this.nrMembers = bandEntity.getNrMembers();
     }
 }

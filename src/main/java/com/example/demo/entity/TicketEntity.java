@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Entity(name = "ticket")
 public class TicketEntity implements Serializable {
     private static final long serialVersionUID = 7809200551672852690L;
-
     @Id
     @GeneratedValue
     private long id;
@@ -16,7 +15,7 @@ public class TicketEntity implements Serializable {
     private String ticketId;
 
     @Column(nullable=false, length=120)
-    private String ticketType;
+    private String type;
 
     @OneToOne
     @JoinColumn(name="stage_id")
@@ -30,12 +29,12 @@ public class TicketEntity implements Serializable {
         this.id = id;
     }
 
-    public String getTicketType() {
-        return ticketType;
+    public String getType() {
+        return type;
     }
 
-    public void setTicketType(String ticketType) {
-        this.ticketType = ticketType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public StageEntity getStageDetails() {

@@ -1,7 +1,6 @@
 package com.example.demo.model.response;
 
-import com.example.demo.entity.UserEntity;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class BandRest {
@@ -10,7 +9,7 @@ public class BandRest {
 
     private int nrMembers;
 
-    private List<UserRest> listOfUserDetails;
+    private List<UserRest> listOfUserDetails = new ArrayList<>();
 
     public String getName() {
         return name;

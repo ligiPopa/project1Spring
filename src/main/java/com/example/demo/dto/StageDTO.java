@@ -3,6 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.entity.BandEntity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StageDTO implements Serializable {
@@ -11,10 +12,11 @@ public class StageDTO implements Serializable {
     private String stageId;
     private String stageName;
 
-    private List<BandEntity> bands;
+    private List<BandEntity> bands = new ArrayList<>();
 
     private int stageCapacity;
 
+    private int currentFreePlaces;
     public long getId() {
         return id;
     }
@@ -53,5 +55,13 @@ public class StageDTO implements Serializable {
 
     public void setStageId(String stageId) {
         this.stageId = stageId;
+    }
+
+    public int getCurrentFreePlaces() {
+        return currentFreePlaces;
+    }
+
+    public void setCurrentFreePlaces(int currentFreePlaces) {
+        this.currentFreePlaces = currentFreePlaces;
     }
 }

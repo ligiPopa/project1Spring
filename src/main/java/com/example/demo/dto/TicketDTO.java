@@ -7,7 +7,7 @@ public class TicketDTO implements Serializable {
     private long id;
 
     private String ticketId;
-    private String ticketType;
+    private String type;
 
     private StageDTO stageDetails;
 
@@ -19,12 +19,12 @@ public class TicketDTO implements Serializable {
         this.id = id;
     }
 
-    public String getTicketType() {
-        return ticketType;
+    public String getType() {
+        return type;
     }
 
-    public void setTicketType(String ticketType) {
-        this.ticketType = ticketType;
+    public void setType(String ticketType) {
+        this.type = ticketType;
     }
 
     public StageDTO getStageDetails() {

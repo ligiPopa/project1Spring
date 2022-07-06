@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.dto.TicketDTO;
 
-public interface TicketService {
-    //Todo add implementation for this
-    //TicketDTO getTicketByStageName(String stageName);
+import java.util.List;
 
-    TicketDTO createTicket(TicketDTO ticket);
+public interface TicketService {
+    TicketDTO createTicket(String stageName);
     TicketDTO getTicketByTicketId(String ticketId);
+
+    //TODO change with list
+    TicketDTO getTicketByType(String typeName);
 }

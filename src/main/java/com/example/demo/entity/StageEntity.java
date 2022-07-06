@@ -16,11 +16,11 @@ public class StageEntity implements Serializable {
     @Column(nullable=false, length=120)
     private String stageName;
 
-    @OneToMany(mappedBy="id", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="stageDetails", cascade=CascadeType.ALL)
     private List<BandEntity> bands;
-
     @Column(nullable=false)
     private int stageCapacity;
+    private int currentFreePlaces;
 
     public long getId() {
         return id;
@@ -60,5 +60,13 @@ public class StageEntity implements Serializable {
 
     public void setStageId(String stageId) {
         this.stageId = stageId;
+    }
+
+    public int getCurrentFreePlaces() {
+        return currentFreePlaces;
+    }
+
+    public void setCurrentFreePlaces(int currentFreePlaces) {
+        this.currentFreePlaces = currentFreePlaces;
     }
 }

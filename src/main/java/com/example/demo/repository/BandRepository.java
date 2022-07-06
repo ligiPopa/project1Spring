@@ -12,4 +12,6 @@ import java.util.List;
 public interface BandRepository extends CrudRepository<BandEntity, Long> {
     BandEntity findByName(String name);
     BandEntity findByBandId(String bandId);
+
+    List<BandEntity> findByStageDetails(String stageId);
 }

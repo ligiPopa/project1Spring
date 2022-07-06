@@ -18,9 +18,7 @@ public class UserDTO implements Serializable {
 
     private boolean isMemberOfBand;
 
-    private String idBand;
-
-    private BandEntity bandDetails;
+    private BandEntity bandDetails = new BandEntity();
     public long getId() {
         return id;
     }
@@ -39,10 +37,6 @@ public class UserDTO implements Serializable {
 
     public boolean isMemberOfBand() {
         return isMemberOfBand;
-    }
-
-    public String getIdBand() {
-        return idBand;
     }
 
     public BandEntity getBandDetails() {
@@ -68,11 +62,6 @@ public class UserDTO implements Serializable {
     public void setMemberOfBand(boolean memberOfBand) {
         isMemberOfBand = memberOfBand;
     }
-
-    public void setIdBand(String idBand) {
-        this.idBand = idBand;
-    }
-
     public void setUserId(String userId) {
         this.userId = userId;
     }

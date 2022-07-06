@@ -19,21 +19,21 @@ public class BandController {
     BandService bandService;
 
     @GetMapping(path="/{name}")
-    public BandRest getUser(@PathVariable String name) {
+    public BandRest getBandByName(@PathVariable String name) {
         BandDTO bandDTO = bandService.getBandByName(name);
         BandRest returnValue = new BandRest();
         BeanUtils.copyProperties(bandDTO, returnValue);
         return returnValue;
         //return EntityModel.of(returnValue).add(userResourceLink).add(addressesResourceLink);
     }
-
-    @PostMapping(path="/create")
-    public BandRest createBand(@RequestBody BandRequestModel bandDetails) throws Exception {
-        BandRest returnValue = new BandRest();
-        BandDTO bandDTO = new BandDTO();
-        BeanUtils.copyProperties(bandDetails, bandDTO);
-        bandService.createBand(bandDTO);
-        BeanUtils.copyProperties(bandDetails, returnValue);
-        return returnValue;
-    }
+//
+//    @PostMapping(path="/create")
+//    public BandRest createBand(@RequestBody BandRequestModel bandDetails) throws Exception {
+//        BandRest returnValue = new BandRest();
+//        BandDTO bandDTO = new BandDTO();
+//        BeanUtils.copyProperties(bandDetails, bandDTO);
+//        bandService.createBand(bandDTO);
+//        BeanUtils.copyProperties(bandDetails, returnValue);
+//        return returnValue;
+//    }
 }

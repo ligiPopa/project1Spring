@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-
-public class TypeServiceImpl implements TypeService {
+public class  TypeServiceImpl implements TypeService {
     @Autowired
     TypeRepository typeRepository;
     @Autowired
@@ -43,7 +42,7 @@ public class TypeServiceImpl implements TypeService {
         TypeEntity typeEntity = new TypeEntity();
         BeanUtils.copyProperties(type, typeEntity);
 
-        String publicTypeId = utils.generateUserId(30);
+        String publicTypeId = utils.generateId(30);
 
         typeEntity.setTypeId(publicTypeId);
 
