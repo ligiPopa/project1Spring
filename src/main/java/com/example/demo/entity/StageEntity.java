@@ -16,6 +16,10 @@ public class StageEntity implements Serializable {
     @Column(nullable=false, length=120)
     private String stageName;
 
+    @OneToOne
+    @JoinColumn(name="price_id")
+    private PriceEntity priceDetails;
+
     @OneToMany(mappedBy="stageDetails", cascade=CascadeType.ALL)
     private List<BandEntity> bands;
     @Column(nullable=false)
@@ -68,5 +72,13 @@ public class StageEntity implements Serializable {
 
     public void setCurrentFreePlaces(int currentFreePlaces) {
         this.currentFreePlaces = currentFreePlaces;
+    }
+
+    public PriceEntity getPriceDetails() {
+        return priceDetails;
+    }
+
+    public void setPriceDetails(PriceEntity priceDetails) {
+        this.priceDetails = priceDetails;
     }
 }

@@ -12,10 +12,12 @@ public interface BandService {
     BandDTO createEmptyBand(BandDTO bandDTO);
     BandDTO createBand(String bandName, UserDTO userDTO);
     BandDTO updateNumberOfMemberOfBand(String bandName, UserDTO userDTO);
-//    void addBandUser(UserDTO user, String bandName);
 
-    BandDTO updateBand(StageDTO stageDTO, BandDTO bandDTO);
+    BandDTO updateBand(String stageDTOName, BandDTO bandDTO);
 
-    List<BandDTO> getBandByStageId(String stageId);
+    List<BandDTO> getBandByStageId(long stageId);
 
+    void addBand(UserDTO userDTO, String bandName);
+
+    void updateBandWithNewMember(UserDTO userDto, String bandName);
 }

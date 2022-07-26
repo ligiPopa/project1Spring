@@ -1,13 +1,10 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.BandDTO;
 import com.example.demo.dto.StageDTO;
-import com.example.demo.entity.BandEntity;
 import com.example.demo.entity.StageEntity;
 import com.example.demo.exceptions.UserServiceException;
-import com.example.demo.repository.BandRepository;
+import com.example.demo.repository.PriceRepository;
 import com.example.demo.repository.StageRepository;
-import com.example.demo.service.BandService;
 import com.example.demo.service.StageService;
 import com.example.demo.utils.Utils;
 import org.springframework.beans.BeanUtils;
@@ -23,7 +20,7 @@ public class StageServiceImpl implements StageService {
     @Autowired
     StageRepository stageRepository;
     @Autowired
-    BandRepository bandRepository;
+    PriceRepository priceRepository;
     @Autowired
     Utils utils;
 
@@ -41,6 +38,10 @@ public class StageServiceImpl implements StageService {
 
         stageEntity.setStageCapacity(stage.getStageCapacity());
         stageEntity.setCurrentFreePlaces(stage.getStageCapacity());
+
+        //PriceEntity priceEntity = priceRepository.save(stage.getPrice());
+
+        stageEntity.setPriceDetails(stage.getPrice());
 
         StageEntity storedTicketDetails = stageRepository.save(stageEntity);
 
@@ -97,5 +98,37 @@ public class StageServiceImpl implements StageService {
 
 
         return returnValue;
+    }
+
+    @Override
+    public List<StageDTO> getTheMostSoldOutStages() {
+        double maxBoughtTicketPercentage = -1;
+        List<StageDTO> stagesDTO = new ArrayList<>();
+
+        List<StageEntity> stageEntities = stageRepository.findAll();
+
+        if(stageEntities != null)
+        {
+            for (StageEntity stageEntity: stageEntities) {
+                StageDTO returnValue = new StageDTO();
+                BeanUtils.copyProperties(stageEntity, returnValue);
+                returnValue.setBands(stageEntity.getBands());
+                double percentage = (stageEntity.getStageCapacity() - stageEntity.getCurrentFreePlaces()) / stageEntity.getStageCapacity();
+                if (percentage > maxBoughtTicketPercentage){
+                    stagesDTO.clear();
+                    stagesDTO.add(returnValue);
+                    maxBoughtTicketPercentage = percentage;
+                }
+                else
+                    if (percentage == maxBoughtTicketPercentage){
+                        stagesDTO.add(returnValue);
+                    }
+            }
+        }
+        else
+            throw new UserServiceException("Stage not found!");
+
+
+        return stagesDTO;
     }
 }

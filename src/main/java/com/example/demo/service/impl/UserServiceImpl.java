@@ -1,20 +1,19 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.BandDTO;
 import com.example.demo.dto.UserDTO;
-import com.example.demo.entity.BandEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.exceptions.UserServiceException;
 import com.example.demo.model.response.ErrorMessages;
 import com.example.demo.repository.BandRepository;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.service.BandService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.Utils;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,9 +22,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     BandRepository bandRepository;
-
-//    @Autowired
-//    BandService bandService;
 
     @Autowired
     Utils utils;
@@ -68,13 +64,16 @@ public class UserServiceImpl implements UserService {
             throw new UserServiceException("Age should be positive");
 //        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 //        userEntity.setEmailVerificationToken(utils.generateEmailVerificationToken(publicUserId));
+//        BandEntity bandDTO = new BandEntity();
+//        userEntity.setBandDetails(bandDTO);
+        if ( !userDTO.isMemberOfBand())
+        {
+            userEntity.setBandDetails(null);
+        }
         UserEntity storedUserDetails = userRepository.save(userEntity);
 
         UserDTO returnValue = new UserDTO();
         BeanUtils.copyProperties(storedUserDetails, returnValue);
-
-        // Send an email message to user to verify their email address
-        //amazonSES.verifyEmail(returnValue);
 
         return returnValue;
     }
@@ -86,7 +85,6 @@ public class UserServiceImpl implements UserService {
 
         if (userEntity == null)
             throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-
         userEntity.setAge(userDTO.getAge());
         userEntity.setUserId(userDTO.getUserId());
         userEntity.setEmail(userDTO.getEmail());
@@ -98,6 +96,27 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(updatedUserDetails, returnValue);
 
         return returnValue;
+    }
+
+    @Override
+    public List<UserDTO> findSingers() {
+        List<UserDTO> usersDto = userRepository.findAllSingers().stream()
+                .map(e->{
+                    UserDTO userDTO = new UserDTO();
+                    BeanUtils.copyProperties(e,userDTO);
+                            return userDTO;} ).collect(Collectors.toList());
+        return usersDto;
+    }
+
+
+    @Override
+    public List<UserDTO> findBands() {
+        List<UserDTO> usersDto = userRepository.findAllBands().stream()
+                .map(e->{
+                    UserDTO userDTO = new UserDTO();
+                    BeanUtils.copyProperties(e,userDTO);
+                    return userDTO;} ).collect(Collectors.toList());
+        return usersDto;
     }
 
 //    @Override
@@ -123,6 +142,4 @@ public class UserServiceImpl implements UserService {
 //    public BandDTO addMembers(UserDTO userDTO) {
 //
 //    }
-
-
 }

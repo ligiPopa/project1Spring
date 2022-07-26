@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.BandEntity;
+import com.example.demo.entity.PriceEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class StageDTO implements Serializable {
     private List<BandEntity> bands = new ArrayList<>();
 
     private int stageCapacity;
+
+    private PriceEntity price;
 
     private int currentFreePlaces;
     public long getId() {
@@ -60,8 +63,15 @@ public class StageDTO implements Serializable {
     public int getCurrentFreePlaces() {
         return currentFreePlaces;
     }
-
     public void setCurrentFreePlaces(int currentFreePlaces) {
         this.currentFreePlaces = currentFreePlaces;
+    }
+
+    public PriceEntity getPrice() {
+        return price;
+    }
+
+    public void setPrice(PriceEntity price) {
+        this.price = price;
     }
 }

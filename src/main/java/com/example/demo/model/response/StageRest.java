@@ -1,6 +1,6 @@
 package com.example.demo.model.response;
 
-import com.example.demo.entity.BandEntity;
+import com.example.demo.dto.PriceDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ public class StageRest {
     private String stageName;
     private List<BandRest> bands = new ArrayList<>();
     private int stageCapacity;
+
+    private PriceDTO price;
 
     public String getStageId() {
         return stageId;
@@ -41,5 +43,13 @@ public class StageRest {
 
     public void setStageCapacity(int stageCapacity) {
         this.stageCapacity = stageCapacity;
+    }
+
+    public PriceDTO getPrice() {
+        return price;
+    }
+
+    public void setPrice(PriceDTO price) {
+        this.price = price;
     }
 }

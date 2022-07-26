@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,6 +22,7 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private int age;
 
+    @Value("false")
     @Column(nullable = false)
     private boolean isMemberOfBand;
 

@@ -4,8 +4,10 @@ import com.example.demo.dto.StageDTO;
 
 public class TicketRest {
     private String ticketId;
-    private String ticketType;
+    private String type;
     private String stageName;
+
+    private String priceType;
 
     public String getTicketId() {
         return ticketId;
@@ -15,19 +17,31 @@ public class TicketRest {
         this.ticketId = ticketId;
     }
 
-    public String getTicketType() {
-        return ticketType;
+    public String getType() {
+        return type;
     }
 
-    public void setTicketType(String ticketType) {
-        this.ticketType = ticketType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getStageName() {
         return stageName;
     }
 
+    public void setStageName(String stageName) {
+        this.stageName = stageName;
+    }
+
     public void setStageDetails(StageRest stageDetails) {
         this.stageName = stageName;
+    }
+
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
     }
 }

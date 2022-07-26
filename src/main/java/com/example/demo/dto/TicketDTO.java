@@ -9,6 +9,10 @@ public class TicketDTO implements Serializable {
     private String ticketId;
     private String type;
 
+    private double price;
+
+    private String priceType;
+
     private StageDTO stageDetails;
 
     public long getId() {
@@ -41,5 +45,21 @@ public class TicketDTO implements Serializable {
 
     public void setTicketId(String ticketId) {
         this.ticketId = ticketId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
     }
 }

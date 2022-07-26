@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BandServiceImpl implements BandService {
@@ -43,7 +44,7 @@ public class BandServiceImpl implements BandService {
         if (bandEntity != null) {
             BeanUtils.copyProperties(bandEntity, returnValue);
         } else
-            throw new UserServiceException("Band with name " + name + " not found!");
+            throw new BandServiceException("Band with name " + name + " not found!");
 
         return returnValue;
     }
@@ -66,7 +67,7 @@ public class BandServiceImpl implements BandService {
             // throw new BandServiceException("Record already exists");
 
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Foo Not Found");
+                    HttpStatus.CONFLICT, "Record already exists");
 
         BandDTO bandDto = new BandDTO();
         BandEntity storedTicketDetails = bandRepository.save(createBand(bandDto));
@@ -77,6 +78,7 @@ public class BandServiceImpl implements BandService {
         return returnValue;
     }
 
+    //add a member in band
     @Override
     public BandDTO createBand(String bandName, UserDTO userDTO) {
         BandDTO returnValue = new BandDTO();
@@ -93,6 +95,9 @@ public class BandServiceImpl implements BandService {
             BeanUtils.copyProperties(userDTO, userEntity);
             responseEntity.setListOfUserDetails(Arrays.asList(userEntity));
         }
+        else
+            throw new BandServiceException("Record already exists");
+
         BandEntity storedBandDetails = bandRepository.save(responseEntity);
 
         returnValue = new BandDTO();
@@ -103,66 +108,50 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public BandDTO updateNumberOfMemberOfBand(String bandName, UserDTO userDTO) {
-        if (bandRepository.findByName(bandName) == null)
+        BandEntity foundBandEntity = bandRepository.findByName(bandName);
+
+        if (foundBandEntity == null)
             throw new BandServiceException("Record doesn't exists");
         else
         {
-            BandEntity foundBandEntity = bandRepository.findByName(bandName);
            int numberOfMember =  foundBandEntity.getNrMembers();
             BandEntity bandEntity = new BandEntity();
             foundBandEntity.setNrMembers(numberOfMember + 1);
 
-
             //TODO add validation for no band found !!!!
            //for no bands with specified name we will get an
-            if (foundBandEntity != null)
-                BeanUtils.copyProperties( foundBandEntity, bandEntity);
+            BeanUtils.copyProperties( foundBandEntity, bandEntity);
 
             //update list of user from band
             UserEntity userEntity = new UserEntity();
             BeanUtils.copyProperties(userDTO, userEntity);
+            if (foundBandEntity.getListOfUserDetails() == null)
+                foundBandEntity.setListOfUserDetails(new ArrayList<>());
             foundBandEntity.getListOfUserDetails().add(userEntity);
 
-            BandEntity storedTicketDetails = bandRepository.save(foundBandEntity);
+            BandEntity storedBandDetails = bandRepository.save(foundBandEntity);
 
             BandDTO returnValue = new BandDTO();
-            BeanUtils.copyProperties(storedTicketDetails, returnValue);
+            BeanUtils.copyProperties(storedBandDetails, returnValue);
             return returnValue;
         }
     }
 
 
     @Override
-    public BandDTO updateBand(StageDTO stageRemoveIt, BandDTO band) {
-        StageEntity stage = stageRepository.findByStageName(stageRemoveIt.getStageName());
-        //BandEntity bandEntity = bandRepository.findByName(band.getName());
-        if (stageRepository.findByStageId(stage.getStageId()) == null )
-            throw new UserServiceException("Record does not exists");
+    public BandDTO updateBand(String stageName, BandDTO band) {
+        StageEntity stage = stageRepository.findByStageName(stageName);
+        if (stage == null )
+            throw new BandServiceException("Record does not exists");
 
-        //StageEntity stageEntity = new StageEntity();
-
-        //bound the bands and stage
-//        List<BandEntity> bands = new ArrayList<>();
-//        if (stage.getBands() != null)
-//        {
-//            bands = stage.getBands();
-//        }
         BandEntity newBandEntity = new BandEntity();
-        BeanUtils.copyProperties(band , newBandEntity);
-//        bands.add(newBandEntity);
-//        stage.setBands(bands);
-
-        //BeanUtils.copyProperties(stage, stageEntity);
-
-        //add stage data
-//        newBandEntity.setStageDetails(stage);
+        BeanUtils.copyProperties(band, newBandEntity);
 
         //add user data
         newBandEntity.setStageDetails(stage);
         newBandEntity.setListOfUserDetails(new ArrayList<>());
 
         BandEntity bandEntity = bandRepository.save(newBandEntity);
-        //StageEntity storedTicketDetails = stageRepository.save(stageEntity);
 
         BandDTO returnValue = new BandDTO();
         BeanUtils.copyProperties(bandEntity , returnValue);
@@ -171,34 +160,38 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public List<BandDTO> getBandByStageId(String stageId) {
-        List<BandEntity> foundBands =  bandRepository.findByStageDetails(stageId);
+    public List<BandDTO> getBandByStageId(long stageId) {
+        List<BandEntity> foundBands =  bandRepository.findAll().stream()
+                .filter(e-> checkBandIsEnrolled(e) & e.getStageDetails().getId() == stageId)
+                .collect(Collectors.toList());
+
         List<BandDTO> bands = new ArrayList<>();
 
-        BandDTO bandDTO = new BandDTO();
         for (BandEntity bandEntity:foundBands) {
-            BeanUtils.copyProperties(bandEntity, bandDTO);
-            bands.add(bandDTO);
+            BandDTO bandDto = new BandDTO();
+            BeanUtils.copyProperties(bandEntity, bandDto);
+            bands.add(bandDto);
         }
+
 
         return bands;
     }
 
+    @Override
+    public void updateBandWithNewMember(UserDTO userDto, String bandName) {
+        BandEntity bandEntity = new BandEntity();
+        BandDTO updatedBand = updateNumberOfMemberOfBand(bandName, userDto);
+        BeanUtils.copyProperties(updatedBand, bandEntity);
+        userDto.setBandDetails(bandEntity);
+    }
 
-//    @Override
-//    public void addBandUser(UserDTO user, String bandName) {
-//
-//        BandEntity bandEntity = new BandEntity();
-//
-//        BandDTO bandDTO = new BandDTO();
-//        bandDTO.setNrMembers(1);
-//        bandDTO.setName(user.getBandDetails().getName());
-//        BandDTO createdBand = createBand(bandDTO);
-//
-//        BeanUtils.copyProperties(createdBand, bandEntity);
-//
-//        user.setBandDetails(createdBand);
-//    }
+    @Override
+    public void addBand(UserDTO userDto, String bandName) {
+        BandEntity bandEntity = new BandEntity();
+        BandDTO createdBand = createBand(bandName,userDto);
+        BeanUtils.copyProperties(createdBand, bandEntity);
+        userDto.setBandDetails(bandEntity);
+    }
 
     public BandEntity createBand(BandDTO band) {
 
@@ -210,5 +203,9 @@ public class BandServiceImpl implements BandService {
         bandEntity.setBandId(publicBandId);
 
         return bandEntity;
+    }
+
+    boolean checkBandIsEnrolled(BandEntity bandEntity){
+        return bandEntity.getStageDetails() != null;
     }
 }

@@ -42,11 +42,4 @@ public class BandDTO implements Serializable {
     public void setBandId(String bandId) {
         this.bandId = bandId;
     }
-
-    public void setBandDetails(BandDTO bandDto){
-        this.id = bandDto.getId();
-        this.bandId = bandDto.getBandId();
-        this.name = bandDto.getName();
-        this.nrMembers = bandDto.getNrMembers();
-    }
 }

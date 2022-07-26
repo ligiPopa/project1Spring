@@ -17,6 +17,12 @@ public class TicketEntity implements Serializable {
     @Column(nullable=false, length=120)
     private String type;
 
+    @Column(nullable=false)
+    private double price;
+
+    @Column(nullable = false)
+    private String priceType;
+
     @OneToOne
     @JoinColumn(name="stage_id")
     private StageEntity stageDetails;
@@ -51,5 +57,21 @@ public class TicketEntity implements Serializable {
 
     public void setTicketId(String ticketId) {
         this.ticketId = ticketId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getPriceType() {
+        return priceType;
+    }
+
+    public void setPriceType(String priceType) {
+        this.priceType = priceType;
     }
 }

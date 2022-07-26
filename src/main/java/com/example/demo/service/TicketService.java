@@ -9,5 +9,7 @@ public interface TicketService {
     TicketDTO getTicketByTicketId(String ticketId);
 
     //TODO change with list
-    TicketDTO getTicketByType(String typeName);
+    List<TicketDTO> getTicketByType(String typeName);
+
+    TicketDTO createTicketByPriceType(String priceType, String stageName);
 }

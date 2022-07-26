@@ -4,8 +4,10 @@ import com.example.demo.entity.TicketEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TicketRepository extends CrudRepository<TicketEntity,Long> {
     TicketEntity findByTicketId(String ticketId);
-    TicketEntity findByType(String type);
+    List<TicketEntity> findByType(String type);
 }
